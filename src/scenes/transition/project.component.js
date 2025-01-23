@@ -17,6 +17,8 @@ import linq from "js-linq";
 import { styles, colors } from "../../stylesheet/styles";
 import { xt, getDataStorage, setDataStorage } from "../../api/service";
 import { apiAuth } from "../../api/authentication";
+import LoadingRows from "../../components/loadingRows";
+import NoRows from "../../components/noRows";
 export default function ProjectScreen({ route, navigation }) {
     // const theme = useTheme();
     const $linq = (arr) => new linq(arr);
@@ -266,17 +268,8 @@ export default function ProjectScreen({ route, navigation }) {
     };
     return (
         < View style={{ flex: 1 }}>
-            <FlatList
-                data={dataArr}
-                renderItem={renderItem}
-                keyExtractor={(item, index) => index.toString()}
-                showsVerticalScrollIndicator={false}
-                // ListHeaderComponent={renderHeader()}
-                // showsVerticalScrollIndicator={false}
-                initialNumToRender={10} // Reduce initial render amount
-                maxToRenderPerBatch={5} // Reduce number in each render batch
-                windowSize={3} // Reduce the window size
-            />
+          {/* <LoadingRows></LoadingRows> */}
+          {/* <NoRows></NoRows> */}
         </View>
     );
 }

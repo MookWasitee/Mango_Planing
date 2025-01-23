@@ -20,12 +20,14 @@ import BannerImage from "../../assets/images/logo.png";
 import LoaddingLayout from "../template/loadding_layout";
 import { colors, styles } from "../stylesheet/styles";
 import { getSyscode } from '../api/bind_api';
+import { xt, getDataStorage } from "../api/service";
 export default function Passcode({ navigation }) {
   const $linq = (arr) => new linq(arr);
   const [isProcess, setProcess] = useState(false);
   const [isPasscode, setPasscode] = useState();
   const [loading, setLoading] = useState(false);
-
+  const [lang, setLang] = useState({});
+  const [themes, setthemes] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,9 +36,18 @@ export default function Passcode({ navigation }) {
       } catch (ex) {
         MessageBox.Alert(`Error`, ex.toString());
       }
+      getLangDF();
     };
     fetchData();
   }, []);
+  const getLangDF = async () => {
+    let lang_ = await xt.getLang();
+    setLang(lang_);
+
+    let themes_key = await getDataStorage("themes_ppn") || "light";
+    setthemes(themes_key)
+
+  };
   const _doNext = async () => {
     let passcode = (isPasscode || "").toUpperCase().trim();
     if ($xt.isEmpty(passcode)) return;
